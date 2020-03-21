@@ -4,12 +4,15 @@
     <title>MaskiKz</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=384a963e-4fbb-4d48-bddb-483321c45a9f&lang=ru_RU" type="text/javascript"></script>
   </head>
-
   <body>
+  <div class="header">
+    <div class="logo">CAREmet.kz</div>
+  </div>
     <%= yield %>
   </body>
 </html>

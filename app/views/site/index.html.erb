@@ -1,0 +1,51 @@
+<div class="site">
+  <div id="map-container">
+  </div>
+</div>
+
+<script>
+    var coordinates = null;
+    var myMap;
+    <% if @maski.confirmed_at && @maski.point %>
+    y = <%= @maski.point.latitude %>;
+    x = <%= @maski.point.longitude %>;
+    coordinates = [x,y];
+    <% else %>
+    coordinates = [43.238293,76.945465];
+    <% end %>
+
+    ymaps.ready(init);
+    function init () {
+        myMap = new ymaps.Map('map-container', {
+            center: [43.238293,76.945465],
+            zoom: 13
+        });
+
+        myGeoObject = new ymaps.GeoObject({
+            geometry: {
+                type: "Point",
+                coordinates: coordinates
+            },
+            properties: {
+                iconContent: 'Тяни меня',
+                hintContent: 'Тяни меня полностью'
+            }
+        }, {
+            preset: 'islands#blueStretchyIcon',
+            draggable: true
+        });
+
+        myGeoObject.events.add('dragend', function(e){
+            var cord = e.get('target').geometry.getCoordinates();
+            $('#lat').val(cord[0]);
+            $('#lon').val(cord[1]);
+            $('#confirmed').val(1);
+            ymaps.geocode(cord).then(function(res) {
+                var data = res.geoObjects.get(0).properties.getAll();
+                $('#address').val(data.text);
+            });
+            // $(".cabinet__profile_location_editor input[type=submit]").removeAttr("disabled");
+        });
+        myMap.geoObjects.add(myGeoObject);
+    }
+</script>

@@ -1,0 +1,16 @@
+@import "site";
+body{
+  .header {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    .logo {
+
+    }
+  }
+  width: 100vw;
+  height: 100vh;
+}
